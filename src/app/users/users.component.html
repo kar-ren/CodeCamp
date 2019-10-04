@@ -1,0 +1,73 @@
+<div class="container mx-auto box-shadow  mt-7 w-75 bg-white">
+  <div class="flex text-black p-2">
+    <h1>{{ title }}</h1>
+    <a class="btn btn-primary ml-auto my-auto" href="/todos">View Todos</a>
+  </div>
+  <input
+    type="text"
+    placeholder="Search..."
+    [(ngModel)]="searchText"
+    (change)="onSearch()"
+  />
+  <div class="flex">
+    <span *ngIf="filteredData.length === 0">No result</span>
+    <table class="w-100 table table-striped my-2" *ngIf="filteredData.length > 0">
+      <thead class="lh-10 text-black">
+        <tr>
+          <td>#</td>
+          <td>FIRST NAME</td>
+          <td>LAST NAME</td>
+          <td>OCCUPATION</td>
+          <td></td>
+          <td>ACTIONS</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredData">
+          <td>{{ user.id }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.occupation }}</td>
+          <td>
+            <a routerLink="/todos/{{ user.id }}">View Todos</a>
+          </td>
+          <td>
+            <a (click)="onUpdate($event)">UPDATE</a>
+            <br />
+            <a (click)="onDelete($event)" data-toggle="modal" data-target="#myModal">DELETE</a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="p-2" colspan="6">
+            Showing {{ filteredData.length }} results of {{ userData.length }}.
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Modal Heading</h4>
+              <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+              Modal body..
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

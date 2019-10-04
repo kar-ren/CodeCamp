@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row mb-2">
+    <h2>Todos</h2>
+  </div>
+
+  <div class="row mb-2 d-flex justify-content-between">
+    <div class="col-3 p-0">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search..."
+        [(ngModel)]="searchText"
+        (change)="onSearch()"
+      />
+    </div>
+    <button class="btn btn-primary" (click)="newTodo()">
+      New Todo
+    </button>
+  </div>
+
+  <div class="row">
+    <table class="table table-striped" *ngIf="filteredData.length > 0">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Description</td>
+          <td>Status</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let todo of filteredData">
+          <td>{{ todo.name }}</td>
+          <td>{{ todo.description }}</td>
+          <td>{{ todo.status }}</td>
+          <td>
+            <a (click)="onUpdate(todo)">Update</a>
+            <br />
+            <a (click)="onDelete(todo)">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
