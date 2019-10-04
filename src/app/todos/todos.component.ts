@@ -88,11 +88,13 @@ export class TodosComponent implements OnInit {
 
   onUpdate(todo) {
     console.log('Update');
+    this.router.navigate(['todo/:id'])
     console.log(todo);
   }
 
   onDelete(todo) {
     console.log('Delete');
+    this.router.navigate(['todo/:id'])
     console.log(todo);
   }
 

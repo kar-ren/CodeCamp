@@ -13,9 +13,7 @@
         (change)="onSearch()"
       />
     </div>
-    <button class="btn btn-primary" (click)="newTodo()">
-      New Todo
-    </button>
+    <button class="btn btn-outline-primary mr-2" (click)="newTodo()">&#43; NEW TODO</button>
   </div>
 
   <div class="row">
@@ -34,9 +32,18 @@
           <td>{{ todo.description }}</td>
           <td>{{ todo.status }}</td>
           <td>
-            <a (click)="onUpdate(todo)">Update</a>
-            <br />
-            <a (click)="onDelete(todo)">Delete</a>
+            <button
+              class="btn btn-outline-primary mr-2"
+              (click)="onUpdate(todo)"
+            >
+              <div>Update</div>
+            </button>
+            <button
+              class="btn btn-outline-danger mr-2"
+              (click)="onDelete(todo)"
+            >
+              <div>Delete</div>
+            </button>
           </td>
         </tr>
       </tbody>

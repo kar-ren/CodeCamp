@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UsersModule } from './users/users.module';
 import { TodosModule } from './todos/todos.module';
-import { TodoModule } from './todo/todo.module';
+import { TodoModule } from './todos/todo/todo.module';
 
 @NgModule({
   declarations: [
