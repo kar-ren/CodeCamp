@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-todo',
@@ -8,12 +8,8 @@ import { Router } from '@angular/router';
 })
 export class TodoComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: ActivatedRoute) { }
 
   ngOnInit() {
-  }
-
-  cancel() {
-    this.router.navigate(['todos']);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DeleteModule } from './delete/delete.module';
+import { DeleteComponent } from './delete/delete.component';
 
 @Component({
   selector: 'app-todos',
@@ -91,22 +91,15 @@ export class TodosComponent implements OnInit {
 
   onUpdate(todo) {
     console.log('Update');
-    this.router.navigate(['todo/:id'])
-    console.log(todo);
-  }
-
-  onDelete(todo) {
-    console.log('Delete');
-    this.router.navigate(['todo/:id'])
+    this.router.navigate([''])
     console.log(todo);
   }
 
   newTodo() {
-    this.router.navigate(['todo/new']);
+    this.router.navigate(['/new']);
   }
 
-  openModalDelete(){
-    const mod = this.deletemodal.open(DeleteModule);
-    console.log(mod);
+  openDelete(){
+    this.deletemodal.open(DeleteComponent);
   }
 }

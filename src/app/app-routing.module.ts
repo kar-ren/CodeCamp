@@ -11,15 +11,6 @@ const routes: Routes = [
   {
     path: 'todos',
     component: TodosComponent
-  },
-  {
-    path: 'todos/:userId',
-    component: TodosComponent
-  },
-  {
-    path: '',
-    redirectTo: 'users',
-    pathMatch: 'full'
   }
 ];
 
