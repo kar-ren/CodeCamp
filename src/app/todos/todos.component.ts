@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteModule } from './delete/delete.module';
 
 @Component({
   selector: 'app-todos',
@@ -47,7 +49,8 @@ export class TodosComponent implements OnInit {
 
   constructor(
     private router: Router, 
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private deletemodal: NgbModal
   ) {
     this.filteredData = this.todoData;
   }
@@ -102,4 +105,8 @@ export class TodosComponent implements OnInit {
     this.router.navigate(['todo/new']);
   }
 
+  openModalDelete(){
+    const mod = this.deletemodal.open(DeleteModule);
+    console.log(mod);
+  }
 }

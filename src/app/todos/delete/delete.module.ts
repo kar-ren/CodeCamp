@@ -10,4 +10,4 @@ import { DeleteComponent } from './delete.component';
     CommonModule
   ]
 })
-export class TodoModule { }
+export class DeleteModule { }

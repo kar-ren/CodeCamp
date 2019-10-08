@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UsersModule } from './users/users.module';
 import { TodosModule } from './todos/todos.module';
-import { TodoModule } from './todos/todo/todo.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { TodoModule } from './todos/todo/todo.module';
     AppRoutingModule,
     UsersModule,
     TodosModule,
-    TodoModule
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
