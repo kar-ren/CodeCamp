@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { DeleteComponent } from './delete/delete.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteModule } from './delete/delete.module';
+import { TodoComponent } from './todo/todo.component';
+import { TodoModule } from './todo/todo.module';
 
 
 
@@ -14,10 +16,12 @@ import { DeleteModule } from './delete/delete.module';
     CommonModule,
     FormsModule,
     NgbModule,
-    DeleteModule
+    DeleteModule,
+    TodoModule
   ],
   entryComponents: [
-    DeleteComponent
+    DeleteComponent,
+    TodoComponent
   ]
 })
 export class TodosModule { }

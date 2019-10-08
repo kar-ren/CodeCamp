@@ -1,17 +1,27 @@
-<div class="container d-block justify-content-center mx-5">
-  <div class="d-block p-5">
+<div class="p-5">
+  <div class="d-flex justify-content-center">
     <h2>Create Todo</h2>
   </div>
-  <div class="w-50 d-block"> 
+  <div class="d-flex justify-content-center">
     <form>
       <div class="form-group">
         <label for="todo-name">Name:</label>
-        <input type="text" class="form-control" id="todo-name" placeholder="Enter name...">
+        <input
+          type="text"
+          class="form-control"
+          id="todo-name"
+          placeholder="Enter name..."
+        />
       </div>
 
       <div class="form-group">
         <label for="todo-description">Description:</label>
-        <textarea id="todo-description" class="form-control" cols="30" rows="4"></textarea>
+        <textarea
+          id="todo-description"
+          class="form-control"
+          cols="30"
+          rows="4"
+        ></textarea>
       </div>
 
       <div class="form-group">
@@ -23,16 +33,19 @@
           <option>User #3</option>
         </select>
       </div>
+      <div>
+        <button class="btn btn-primary" type="submit">
+          Create New Todo
+        </button>
 
-      <button class="btn btn-primary" type="submit">
-        Create New Todo
-      </button>
-
-      <button class="btn btn-secondary float-right" type="button" (click)="cancel()">
-        Cancel
-      </button>
-
+        <button
+          class="btn btn-secondary float-right"
+          type="button"
+          (click)="cancel()"
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   </div>
-
 </div>

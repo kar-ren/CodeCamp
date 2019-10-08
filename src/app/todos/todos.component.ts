@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteComponent } from './delete/delete.component';
+import { TodoComponent } from './todo/todo.component';
 
 @Component({
   selector: 'app-todos',
@@ -91,7 +92,7 @@ export class TodosComponent implements OnInit {
 
   onUpdate(todo) {
     console.log('Update');
-    this.router.navigate([''])
+    this.deletemodal.open(TodoComponent);
     console.log(todo);
   }
 

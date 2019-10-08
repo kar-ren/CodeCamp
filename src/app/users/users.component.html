@@ -32,9 +32,8 @@
             <a routerLink="/todos/{{ user.id }}">View Todos</a>
           </td>
           <td>
-            <a (click)="onUpdate($event)">UPDATE</a>
-            <br />
-            <a (click)="onDelete($event)" data-toggle="modal" data-target="#myModal">DELETE</a>
+            <button class="btn btn-outline-success mr-2"(click)="onUpdate($event)">UPDATE</button>
+            <button class="btn btn-outline-danger mr-2" (click)="onDelete($event)" data-toggle="modal" data-target="#myModal">DELETE</button>
           </td>
         </tr>
       </tbody>
