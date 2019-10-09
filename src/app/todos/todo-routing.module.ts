@@ -2,7 +2,17 @@ import { RouterModule, Routes } from "@angular/router";
 import { TodosComponent } from './todos.component';
 import { NgModule } from '@angular/core';
 
-const routes: Routes = [{path:"", component: TodosComponent}];
+const routes: Routes = [
+    {
+        path:"", 
+        component: TodosComponent
+    },
+
+    {
+        path: ':userId',
+        component: TodosComponent
+    }
+];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

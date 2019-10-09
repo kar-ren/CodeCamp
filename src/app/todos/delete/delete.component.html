@@ -5,7 +5,7 @@
       type="button"
       class="close"
       aria-describedby="modal-title"
-      (click)="modal.dismiss('Cross click')"
+      (click)="cancel('Cross click')"
     >
       <span aria-hidden="true">&times;</span>
     </button>
@@ -27,14 +27,14 @@
     <button
       type="button"
       class="btn btn-outline-secondary"
-      (click)="modal.dismiss('cancel click')"
+      (click)="cancel('cancel click')"
     >
       Cancel
     </button>
     <button
       type="button"
       class="btn btn-danger"
-      (click)="cancel('Ok click')"
+      (click)="submit('Ok click')"
     >
       Ok
     </button>

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from './user.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteuserComponent } from './deleteuser/deleteuser.component';
+import { AdduserComponent } from './adduser/adduser.component';
+import { Users } from './users';
 
 @Component({
   selector: 'app-users',
@@ -11,45 +16,13 @@ export class UsersComponent implements OnInit {
 
   searchText: string;
 
-  userData = [
-    {
-      id: "1234",
-      firstName: "Ted Ian",
-      lastName: "Osias",
-      occupation: "Software Engineer",
-      profilePicture:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
-    },
-    {
-      id: "1235",
-      firstName: "Heinrich",
-      lastName: "Woogue",
-      occupation: "Software Engineer",
-      profilePicture:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
-    },
-    {
-      id: "1236",
-      firstName: "Marianne",
-      lastName: "Owen",
-      occupation: "Manager",
-      profilePicture:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
-    },
-    {
-      id: "1237",
-      firstName: "Teody",
-      lastName: "Cue",
-      occupation: "Software Engineer",
-      profilePicture:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
-    }
-  ];
-
   filteredData: any[];
 
-  constructor() {
-    this.filteredData = this.userData;
+  constructor(
+    private userService: UserService,
+    private userModal: NgbModal,
+    ) {
+    this.filteredData = this.userService.getUserData();
   }
 
   ngOnInit() {
@@ -60,25 +33,25 @@ export class UsersComponent implements OnInit {
     const searchText = this.searchText.toLowerCase();
 
     if (searchText) {
-      this.filteredData = this.userData.filter((user) => {
+      this.filteredData = this.userService.getUserData().filter((user) => {
         return user.firstName.toLowerCase().includes(searchText) ||
           user.lastName.toLowerCase().includes(searchText) ||
           user.occupation.toLowerCase().includes(searchText);
       });
     }
     else {
-      this.filteredData = this.userData;
+      this.filteredData = this.userService.getUserData();
     }
   }
 
-  onUpdate(user) {
+  onUpdate(user: Users) {
     console.log('Update');
-    console.log(user);
+    const saveData = this.userModal.open(AdduserComponent);
+    saveData.componentInstance.user = user;
   }
 
-  onDelete(user) {
+  onDelete() {
     console.log('Delete');
-    console.log(user);
+    this.userModal.open(DeleteuserComponent);
   }
-
 }

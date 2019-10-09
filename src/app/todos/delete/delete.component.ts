@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-todo',
@@ -8,12 +8,19 @@ import { Router } from '@angular/router';
 })
 export class DeleteComponent implements OnInit {
 
-  constructor(private router: Router) { }
+
+  constructor(private closeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }
 
-  cancel() {
-    this.router.navigate(['todos']);
+  cancel(close: string) {
+    console.log(close)
+    this.closeModal.close();
+  }
+
+  submit(submit: string){
+    console.log("submit");
+    this.closeModal.close();
   }
 }

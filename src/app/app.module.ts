@@ -7,6 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { UsersModule } from './users/users.module';
 import { TodosModule } from './todos/todos.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdduserComponent } from './users/adduser/adduser.component';
+import { DeleteuserComponent } from './users/deleteuser/deleteuser.component';
+import { UserService } from './users/user.service';
+import { TodoService } from './todos/todos.service';
 
 
 @NgModule({
@@ -21,7 +25,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TodosModule,
     NgbModule
   ],
-  providers: [],
+  providers: [UserService, TodoService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

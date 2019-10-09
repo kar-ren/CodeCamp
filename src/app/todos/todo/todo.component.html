@@ -1,51 +1,68 @@
-<div class="p-5">
-  <div class="d-flex justify-content-center">
-    <h2>Create Todo</h2>
+<form action="">
+  <div class="modal-header">
+    <h2 class="modal-title">{{ title }}</h2>
   </div>
-  <div class="d-flex justify-content-center">
-    <form>
-      <div class="form-group">
-        <label for="todo-name">Name:</label>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        [(ngModel)]="name"
+        class="form-control"
+        placeholder="Enter name..."
+        name="name"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea
+        [(ngModel)] ="description"
+        class="form-control"
+        name="description"
+        cols="30"
+        rows="4"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status:</label>
         <input
           type="text"
+          [(ngModel)]="status"
           class="form-control"
-          id="todo-name"
           placeholder="Enter name..."
+          name="status"
         />
       </div>
-
-      <div class="form-group">
-        <label for="todo-description">Description:</label>
-        <textarea
-          id="todo-description"
+    <div class="form-group">
+      <label for="owner">Owner:</label>
+      <input
+          type="text"
+          [(ngModel)]="owner"
           class="form-control"
-          cols="30"
-          rows="4"
-        ></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="todo-owner">Owner:</label>
-        <select class="form-control" id="todo-owner">
-          <option></option>
-          <option>User #1</option>
-          <option>User #2</option>
-          <option>User #3</option>
-        </select>
-      </div>
-      <div>
-        <button class="btn btn-primary" type="submit">
-          Create New Todo
-        </button>
-
-        <button
-          class="btn btn-secondary float-right"
-          type="button"
-          (click)="cancel()"
-        >
-          Cancel
-        </button>
-      </div>
-    </form>
+          placeholder="Enter name..."
+          name="owner"
+        />
+      <!-- <select class="form-control" id="todo-owner">
+        <option></option>
+        <option>User #1</option>
+        <option>User #2</option>
+        <option>User #3</option>
+      </select> -->
+    </div>
   </div>
-</div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="submit" (click)="submit()">
+      {{ todos ? "Update" : "Create" }}
+    </button>
+
+    <button
+      class="btn btn-secondary float-right"
+      type="button"
+      (click)="modal.dismiss()"
+    >
+      Cancel
+    </button>
+  </div>
+</form>
