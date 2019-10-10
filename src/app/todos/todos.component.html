@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container mt-5">
   <div class="row mb-2">
-    <h2>Todos</h2>
+    <h2>{{ title }}</h2>
     <a class="btn btn-primary ml-auto my-auto" href="/users">View Users</a>
   </div>
 
@@ -8,16 +8,18 @@
     <div class="col-3 p-0">
       <input
         type="text"
-        class="form-control"
         placeholder="Search..."
         [(ngModel)]="searchText"
         (change)="onSearch()"
       />
     </div>
-    <button class="btn btn-outline-primary mr-2" (click)="newTodo()">&#43; NEW TODO</button>
+    <button class="btn btn-outline-primary mr-2" (click)="onTodoUpdate()">
+      &#43; NEW TODO
+    </button>
   </div>
 
   <div class="row">
+    <span *ngIf="filteredData.length === 0">No result</span>
     <table class="table table-striped" *ngIf="filteredData.length > 0">
       <thead>
         <tr>
@@ -35,19 +37,28 @@
           <td>
             <button
               class="btn btn-outline-primary mr-2"
-              (click)="onUpdate(todo)"
+              (click)="onTodoUpdate(todo)"
             >
               <div>Update</div>
             </button>
-            <button
-              class="btn btn-outline-danger mr-2"
-              (click)="openDelete()"
-            >
+            <button class="btn btn-outline-danger mr-2" (click)="onDeleteTodo(todo)">
               <div>Delete</div>
             </button>
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td class="p-2" colspan="6">
+            <ngb-pagination
+              [(page)]="page"
+              [pageSize]="pageSize"
+              [collectionSize]="pages"
+              (pageChange)="pageChange($event)"
+            ></ngb-pagination>
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </div>

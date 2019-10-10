@@ -6,7 +6,6 @@ import { Users } from './users';
 })
 
 export class UserService{
-
   
     userData = [
     {
@@ -50,6 +49,7 @@ export class UserService{
   addUser(user: Users):Users{
     let id = (parseInt(this.userData[this.userData.length - 1].id)+1).toString();
     user.id = id;
+    this.userData.push(user);
     return user;
   }
 
@@ -69,5 +69,27 @@ export class UserService{
     userFound.profilePicture = user.profilePicture;
     
     return userFound;
+  }
+
+  onDelete(id: string): Users{
+    const userid = this.findUserId(id);
+    const index = this.userData.indexOf(userid);
+    return userid ? this.userData.splice(index, 1)[0] : null;
+  }
+
+  loadUsers(page: number, pageSize: number): Users[] {
+      return this.userData.splice(page * pageSize, (page + 1)*pageSize);
+  }
+
+  getAllUsers(page: number, pageSize:number, searchText: string){
+    const filters = this.userData.filter(user => {
+      return (
+        user.firstName.toLowerCase().includes(searchText) ||
+        user.lastName.toLowerCase().includes(searchText) ||
+        user.occupation.toLowerCase().includes(searchText)
+      )
+    })
+
+    return filters.slice(page * pageSize, (page + 1) * pageSize);
   }
 }

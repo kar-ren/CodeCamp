@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DeleteuserComponent } from './deleteuser/deleteuser.component';
 import { AdduserComponent } from './adduser/adduser.component';
 import { Users } from './users';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -12,8 +12,11 @@ import { Users } from './users';
 })
 export class UsersComponent implements OnInit {
 
-  title = 'Users';
-
+  title: 'Users';
+  userData: any[];
+  pages: number;
+  pageSize: number = 5;
+  page: number=1;
   searchText: string;
 
   filteredData: any[];
@@ -21,12 +24,14 @@ export class UsersComponent implements OnInit {
   constructor(
     private userService: UserService,
     private userModal: NgbModal,
+    private active: ActivatedRoute
     ) {
     this.filteredData = this.userService.getUserData();
   }
 
   ngOnInit() {
-    //
+    this.filteredData;
+    this.active.queryParams
   }
 
   onSearch() {
@@ -50,8 +55,20 @@ export class UsersComponent implements OnInit {
     saveData.componentInstance.user = user;
   }
 
-  onDelete() {
+  onDelete(user: Users) {
     console.log('Delete');
-    this.userModal.open(DeleteuserComponent);
+    const delet = this.userService.onDelete(user.id);
+    console.log(user);
+  }
+
+  getUserData(){
+    this.userData = this.userService.loadUsers(this.page, this.pageSize);
+    this.filteredData = this.userData;
+    this.pages = this.userService.getUserData().length;
+  }
+
+  pageChange(event){
+    this.page = event;
+    this.getUserData();
   }
 }

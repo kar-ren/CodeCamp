@@ -37,32 +37,53 @@ export class TodoService {
     }
   ];
 
-    addTodo(todo: Todos):Todos{
-      let id = (parseInt(this.todoData[this.todoData.length - 1].id)+1).toString();
-      todo.id = id;
-      return todo;
-    }
+  getTodos() {
+    return this.todoData;
+  }
 
-    findTodoId(id: string){
-      const findTodo = this.todoData.filter(todo => {
-        return todo.id = id;
-      })
-  
-      return findTodo[0];
-    }
-  
-    getTodos() {
-      return this.todoData;
-    }
+  addTodo(todo: Todos):Todos{
+    let id = (parseInt(this.todoData[this.todoData.length - 1].id)+1).toString();
+    todo.id = id;
+    return todo;
+  }
 
-    onUpdate(todo: Todos): Todos{
-      const todoFound = this.findTodoId(todo.id);
-      todoFound.name = todo.name;
-      todoFound.description = todo.description;
-      todoFound.status = todo.status;
-      todoFound.owner = todo.owner;
+  findTodoId(id: string){
+    const findTodo = this.todoData.filter(todo => {
+      return todo.id = id;
+    });
+  
+    return findTodo[0];
+  }
+
+  onUpdate(todo: Todos): Todos{
+    const todoFound = this.findTodoId(todo.id);
+    todoFound.name = todo.name;
+    todoFound.description = todo.description;
+    todoFound.status = todo.status;
+    todoFound.owner = todo.owner;
       
-      return todoFound;
+    return todoFound;
+  }
+
+    onDeleteTodo(id: string): Todos{
+      const todoid = this.findTodoId(id);
+      const index = this.todoData.indexOf(todoid);
+      return todoid ? this.todoData.splice(index, 1)[0] : null;
     }
 
+    loadTodos(page: number, pageSize: number): Todos[] {
+      return this.todoData.splice(page * pageSize, (page + 1)*pageSize);
+  }
+
+  getAllTodos(page: number, pageSize:number, searchText: string){
+    const filters = this.todoData.filter(todo => {
+      return (
+        todo.name.toLowerCase().includes(searchText) ||
+        todo.description.toLowerCase().includes(searchText) ||
+        todo.status.toLowerCase().includes(searchText)
+      )
+    })
+
+    return filters.slice(page * pageSize, (page + 1) * pageSize);
+  }
 }

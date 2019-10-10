@@ -9,8 +9,8 @@
         type="text"
         [(ngModel)]="name"
         class="form-control"
-        placeholder="Enter name..."
         name="name"
+        placeholder="Enter name..."
       />
     </div>
 
@@ -19,9 +19,9 @@
       <textarea
         [(ngModel)] ="description"
         class="form-control"
-        name="description"
         cols="30"
         rows="4"
+        name="description"
       ></textarea>
     </div>
 
@@ -46,7 +46,8 @@
         />
       <!-- <select class="form-control" id="todo-owner">
         <option></option>
-        <option>User #1</option>
+        <option>User #1
+        </option>
         <option>User #2</option>
         <option>User #3</option>
       </select> -->
@@ -54,7 +55,7 @@
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary" type="submit" (click)="submit()">
-      {{ todos ? "Update" : "Create" }}
+      {{ todo ? "Update" : "Create" }}
     </button>
 
     <button

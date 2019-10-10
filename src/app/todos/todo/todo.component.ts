@@ -11,7 +11,7 @@ import { TodoService } from '../todos.service';
 export class TodoComponent implements OnInit {
 
   @Input()
-  todos: Todos;
+  todo: Todos;
 
   id: string;
   name: string;
@@ -27,23 +27,24 @@ export class TodoComponent implements OnInit {
     private todoService: TodoService) { }
 
   ngOnInit() {
-    this.title = this.todos ? "Update Todo" : "Add Todo";
-    this.name = this.todos ? this.todos.name : "";
-    this.description = this.todos ? this.todos.description : "";
-    this.status = this.todos ? this.todos.status : "";
-    this.owner = this.todos ? this.todos.owner : "";
+    this.title = this.todo ? "Update Todo" : "Add Todo";
+    this.name = this.todo ? this.todo.name : "";
+    this.description = this.todo ? this.todo.description : "";
+    this.status = this.todo ? this.todo.status : "";
+    this.owner = this.todo ? this.todo.owner : "";
   }
 
   submit(){
-    if(this.todos){
+    if(this.todo){
       const update: Todos = {
-        id: this.todos.id,
+        id: this.todo.id,
         name: this.name,
         description: this.description,
         status: this.status,
         owner: this.owner
       }
       this.todoService.onUpdate(update);
+      
     }else{
       
         const update: Todos = {

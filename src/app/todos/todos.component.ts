@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DeleteComponent } from './delete/delete.component';
 import { TodoComponent } from './todo/todo.component';
 import { TodoService } from './todos.service';
+import { Todos } from './todos';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-todos',
@@ -13,38 +13,41 @@ import { TodoService } from './todos.service';
 export class TodosComponent implements OnInit {
 
   title = 'Todos';
-
+  toData: any[];
+  pages: number = 5;
+  pageSize: number = 5;
+  page: number=1;
   searchText: string;
 
   filteredData: any[];
 
   constructor(
-    private router: Router, 
-    private activatedRoute: ActivatedRoute,
     private todomodals: NgbModal,
-    private todoService: TodoService
+    private todoService: TodoService,
+    private activatedRoute: ActivatedRoute
     ) {
     this.filteredData = this.todoService.getTodos();
   }
 
   ngOnInit() {
-    console.log('[TodosComponent] On Init!');
+    this.filteredData;
+    // console.log('[TodosComponent] On Init!');
 
-    // Get the user id from URL
-    this.activatedRoute.paramMap.subscribe(
-      // Callback function
-      (paramMap: ParamMap) => {
-        console.log('User ID!!!');
-        const userId = paramMap.get('userId');
+    // // Get the user id from URL
+    // this.activatedRoute.paramMap.subscribe(
+    //   // Callback function
+    //   (paramMap: ParamMap) => {
+    //     console.log('User ID!!!');
+    //     const userId = paramMap.get('userId');
 
-        if (userId) {
-          // Filter todos by owner (user id)
-          this.filteredData = this.todoService.getTodos().filter((todo) => {
-            return todo.owner === userId;
-          });
-        }
-      }
-    );
+    //     if (userId) {
+    //       // Filter todos by owner (user id)
+    //       this.filteredData = this.todoService.getTodos().filter((todo) => {
+    //         return todo.owner === userId;
+    //       });
+    //     }
+    //   }
+    //);
   }
 
   onSearch() {
@@ -53,7 +56,8 @@ export class TodosComponent implements OnInit {
     if (searchText) {
       this.filteredData = this.todoService.getTodos().filter((todo) => {
         return todo.name.toLowerCase().includes(searchText) ||
-          todo.description.toLowerCase().includes(searchText)
+          todo.description.toLowerCase().includes(searchText) ||
+          todo.status.toLowerCase().includes(searchText);
       });
     }
     else {
@@ -61,17 +65,27 @@ export class TodosComponent implements OnInit {
     }
   }
 
-  onUpdate(todo) {
+  onTodoUpdate(todo: Todos) {
+    const modal = this.todomodals.open(TodoComponent);
     console.log('Update');
-    this.todomodals.open(TodoComponent);
+    modal.componentInstance.todo = todo;
     console.log(todo);
   }
 
-  newTodo() {
-    this.todomodals.open(TodoComponent);
+  onDeleteTodo(todo: Todos){
+    console.log('Delete');
+    const delet = this.todoService.onDeleteTodo(todo.id);
+    console.log(todo);
   }
 
-  openDelete(){
-    this.todomodals.open(DeleteComponent);
+  getTodoData(){
+    this.toData = this.todoService.loadTodos(this.page, this.pageSize);
+    this.filteredData = this.toData;
+    this.pages = this.todoService.getTodos().length;
+  }
+
+  pageChange(event){
+    this.page = event;
+    this.getTodoData();
   }
 }
