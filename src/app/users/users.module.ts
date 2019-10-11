@@ -7,7 +7,6 @@ import { AdduserModule } from './adduser/adduser.module';
 import { AdduserComponent } from './adduser/adduser.component';
 
 
-
 @NgModule({
   declarations: [UsersComponent],
   imports: [

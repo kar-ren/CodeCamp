@@ -47,7 +47,7 @@ export class UserService{
   }
 
   addUser(user: Users):Users{
-    let id = (parseInt(this.userData[this.userData.length - 1].id)+1).toString();
+    let id = (parseInt(this.userData[this.userData.length - 1].id)).toString();
     user.id = id;
     this.userData.push(user);
     return user;
@@ -63,6 +63,7 @@ export class UserService{
 
   onUpdate(user: Users): Users{
     const userFound = this.findUserId(user.id);
+    userFound.id = user.id;
     userFound.firstName = user.firstName;
     userFound.lastName = user.lastName;
     userFound.occupation = user.occupation;
@@ -75,10 +76,6 @@ export class UserService{
     const userid = this.findUserId(id);
     const index = this.userData.indexOf(userid);
     return userid ? this.userData.splice(index, 1)[0] : null;
-  }
-
-  loadUsers(page: number, pageSize: number): Users[] {
-      return this.userData.splice(page * pageSize, (page + 1)*pageSize);
   }
 
   getAllUsers(page: number, pageSize:number, searchText: string){

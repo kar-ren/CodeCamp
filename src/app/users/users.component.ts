@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdduserComponent } from './adduser/adduser.component';
 import { Users } from './users';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -14,24 +14,22 @@ export class UsersComponent implements OnInit {
 
   title: 'Users';
   userData: any[];
-  pages: number;
-  pageSize: number = 5;
-  page: number=1;
-  searchText: string;
-
   filteredData: any[];
+  page : number;
+  pageSize = 3;
+  searchText: string;
 
   constructor(
     private userService: UserService,
     private userModal: NgbModal,
-    private active: ActivatedRoute
+    private router: Router    
     ) {
     this.filteredData = this.userService.getUserData();
   }
 
   ngOnInit() {
     this.filteredData;
-    this.active.queryParams
+    this.pageChange(1);
   }
 
   onSearch() {
@@ -47,6 +45,7 @@ export class UsersComponent implements OnInit {
     else {
       this.filteredData = this.userService.getUserData();
     }
+    this.router.navigate(['/users'], { queryParams: { page: this.page , search: searchText}});
   }
 
   onUpdate(user: Users) {
@@ -61,14 +60,7 @@ export class UsersComponent implements OnInit {
     console.log(user);
   }
 
-  getUserData(){
-    this.userData = this.userService.loadUsers(this.page, this.pageSize);
-    this.filteredData = this.userData;
-    this.pages = this.userService.getUserData().length;
-  }
-
-  pageChange(event){
-    this.page = event;
-    this.getUserData();
+  pageChange(pa: number){
+    this.router.navigate(['/users'], { queryParams: { page: this.page = pa}});
   }
 }

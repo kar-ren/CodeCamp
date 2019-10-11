@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UsersModule } from './users/users.module';
 import { TodosModule } from './todos/todos.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from './users/user.service';
 import { TodoService } from './todos/todos.service';
 
@@ -21,7 +21,8 @@ import { TodoService } from './todos/todos.service';
     AppRoutingModule,
     UsersModule,
     TodosModule,
-    NgbModule
+    NgbModule,
+    NgbToastModule
   ],
   providers: [UserService, TodoService ],
   bootstrap: [AppComponent]

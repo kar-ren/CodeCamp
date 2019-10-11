@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TodoComponent } from './todo/todo.component';
 import { TodoService } from './todos.service';
 import { Todos } from './todos';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todos',
@@ -14,40 +14,24 @@ export class TodosComponent implements OnInit {
 
   title = 'Todos';
   toData: any[];
-  pages: number = 5;
-  pageSize: number = 5;
-  page: number=1;
+  filteredData: any[];
+  page : number;
+  pageSize = 3;
   searchText: string;
 
-  filteredData: any[];
+ 
 
   constructor(
     private todomodals: NgbModal,
     private todoService: TodoService,
-    private activatedRoute: ActivatedRoute
+    private router: Router
     ) {
     this.filteredData = this.todoService.getTodos();
   }
 
   ngOnInit() {
     this.filteredData;
-    // console.log('[TodosComponent] On Init!');
-
-    // // Get the user id from URL
-    // this.activatedRoute.paramMap.subscribe(
-    //   // Callback function
-    //   (paramMap: ParamMap) => {
-    //     console.log('User ID!!!');
-    //     const userId = paramMap.get('userId');
-
-    //     if (userId) {
-    //       // Filter todos by owner (user id)
-    //       this.filteredData = this.todoService.getTodos().filter((todo) => {
-    //         return todo.owner === userId;
-    //       });
-    //     }
-    //   }
-    //);
+    this.pageChange(1);
   }
 
   onSearch() {
@@ -62,6 +46,7 @@ export class TodosComponent implements OnInit {
     }
     else {
       this.filteredData = this.todoService.getTodos();
+      this.router.navigate(['/todos'], { queryParams: { page: this.page , search: searchText}});
     }
   }
 
@@ -78,14 +63,7 @@ export class TodosComponent implements OnInit {
     console.log(todo);
   }
 
-  getTodoData(){
-    this.toData = this.todoService.loadTodos(this.page, this.pageSize);
-    this.filteredData = this.toData;
-    this.pages = this.todoService.getTodos().length;
-  }
-
-  pageChange(event){
-    this.page = event;
-    this.getTodoData();
+  pageChange(pa: number){
+    this.router.navigate(['/todos'], { queryParams: { page: this.page = pa}});
   }
 }

@@ -41,9 +41,11 @@ export class AdduserComponent implements OnInit {
         occupation: this.occupation,
         profilePicture: this.profilePicture
       }
-      const added = this.userService.onUpdate(update);
+      const updated = this.userService.onUpdate(update);
+      if(updated){
+        this.modal.close("Updated");
+      }
     }else{
-      
         let update: Users = {
           id: "",
           firstName: this.firstName,
@@ -52,8 +54,10 @@ export class AdduserComponent implements OnInit {
           profilePicture: this.profilePicture
         }
         const added = this.userService.addUser(update);
+        if(added){
+          this.modal.close("Added");
+        }
     }
-    this.modal.close();
   }
 }
 

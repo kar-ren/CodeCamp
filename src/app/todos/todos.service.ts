@@ -42,14 +42,14 @@ export class TodoService {
   }
 
   addTodo(todo: Todos):Todos{
-    let id = (parseInt(this.todoData[this.todoData.length - 1].id)+1).toString();
+    let id = (parseInt(this.todoData[this.todoData.length - 1].id)).toString();
     todo.id = id;
     return todo;
   }
 
   findTodoId(id: string){
     const findTodo = this.todoData.filter(todo => {
-      return todo.id = id;
+      todo.id = id;
     });
   
     return findTodo[0];
@@ -61,7 +61,7 @@ export class TodoService {
     todoFound.description = todo.description;
     todoFound.status = todo.status;
     todoFound.owner = todo.owner;
-      
+    
     return todoFound;
   }
 
@@ -70,10 +70,6 @@ export class TodoService {
       const index = this.todoData.indexOf(todoid);
       return todoid ? this.todoData.splice(index, 1)[0] : null;
     }
-
-    loadTodos(page: number, pageSize: number): Todos[] {
-      return this.todoData.splice(page * pageSize, (page + 1)*pageSize);
-  }
 
   getAllTodos(page: number, pageSize:number, searchText: string){
     const filters = this.todoData.filter(todo => {

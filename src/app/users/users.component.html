@@ -1,40 +1,40 @@
-<div class="container mt-5">
-  <div class="row mb-2">
+<div class="container m-5">
+  <div class="p-2 row ml-5 d-flex justify-content-around">
     <h2>Users</h2>
     <a class="btn btn-primary ml-auto my-auto" href="/todos">View Todos</a>
   </div>
 
-  <div class="row mb-2 d-flex justify-content-between">
+  <div class="row mb-2 ml-5 d-flex justify-content-between">
     <div class="col-3 p-0">
       <input
         type="text"
         placeholder="Search..."
         [(ngModel)]="searchText"
-        (change)="onSearch()"
+        (keyup)="onSearch()"
       />
     </div>
     <button class="btn btn-outline-primary mr-2" (click)="onUpdate()">
       &#43; NEW USER
     </button>
   </div>
-  <div class="flex">
+  <div class="ml-5 d-flex justify-content-around">
     <span *ngIf="filteredData.length === 0">No result</span>
-    <table
-      class="w-100 table table-striped my-2"
-      *ngIf="filteredData.length > 0"
-    >
+    <table class="table table-striped my-2" *ngIf="filteredData.length > 0">
       <thead class="lh-10 text-black">
         <tr>
           <td>#</td>
           <td>FIRST NAME</td>
           <td>LAST NAME</td>
           <td>OCCUPATION</td>
-          <td></td>
+          <td>Todos</td>
           <td>ACTIONS</td>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of filteredData">
+        <tr
+          *ngFor="
+            let user of filteredData | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize"
+        >
           <td>{{ user.id }}</td>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
@@ -43,7 +43,10 @@
             <a routerLink="/todos">View Todos</a>
           </td>
           <td>
-            <button class="btn btn-outline-success mr-2" (click)="onUpdate(user)">
+            <button
+              class="btn btn-outline-success mr-2"
+              (click)="onUpdate(user)"
+            >
               UPDATE
             </button>
             <button
@@ -60,10 +63,10 @@
       <tfoot>
         <tr>
           <td class="p-2" colspan="6">
-            <ngb-pagination
+            <ngb-pagination 
               [(page)]="page"
               [pageSize]="pageSize"
-              [collectionSize]="pages"
+              [collectionSize]="filteredData.length"
               (pageChange)="pageChange($event)"
             ></ngb-pagination>
           </td>
