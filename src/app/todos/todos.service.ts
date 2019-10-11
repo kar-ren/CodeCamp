@@ -44,6 +44,7 @@ export class TodoService {
   addTodo(todo: Todos):Todos{
     let id = (parseInt(this.todoData[this.todoData.length - 1].id)).toString();
     todo.id = id;
+    this.todoData.push(todo);
     return todo;
   }
 
